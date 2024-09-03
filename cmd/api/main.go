@@ -8,6 +8,8 @@ import (
 	"github.com/hyprhex/blogify/internal/store"
 )
 
+const version = "0.0.1"
+
 func main() {
 	cfg := config{
 		addr: env.GetStr("ADDR", ":8080"),
@@ -17,6 +19,7 @@ func main() {
 			maxIdleConns: env.GetInt("DB_MAX_IDLE_CONNS", 30),
 			maxIdleTime:  env.GetStr("DB_MAX_IDLE_TIME", "15m"),
 		},
+		env: env.GetStr("ENV", "development"),
 	}
 
 	db, err := db.New(
