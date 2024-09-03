@@ -3,6 +3,7 @@ package store
 import (
 	"context"
 	"database/sql"
+	"errors"
 
 	"github.com/lib/pq"
 )
@@ -44,4 +45,30 @@ func (s *PostStor) Create(ctx context.Context, post *Post) error {
 	}
 
 	return nil
+}
+
+func (s *PostStor) GetById(ctx context.Context, id int64) (*Post, error) {
+	query := `select id, title, content, category, created_at, updated_at, tags from posts where id = $1`
+
+	var post Post
+
+	err := s.db.QueryRowContext(ctx, query, id).Scan(
+		&post.ID,
+		&post.Title,
+		&post.Content,
+		&post.Category,
+		&post.CreatedAt,
+		&post.UpdatedAt,
+		pq.Array(&post.Tags),
+	)
+	if err != nil {
+		switch {
+		case errors.Is(err, sql.ErrNoRows):
+			return nil, ErrNotFound
+		default:
+			return nil, err
+		}
+	}
+
+	return &post, nil
 }
