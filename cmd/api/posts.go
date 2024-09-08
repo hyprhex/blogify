@@ -60,6 +60,21 @@ func (app *application) createPostHandler(w http.ResponseWriter, r *http.Request
 	}
 }
 
+func (app *application) listPostHandler(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+
+	posts, err := app.store.Posts.List(ctx)
+	if err != nil {
+		app.internalErrorResponse(w, r, err)
+		return
+	}
+
+	if err := writeJSON(w, http.StatusOK, posts); err != nil {
+		app.badRequestErrorResponse(w, r, err)
+		return
+	}
+}
+
 func (app *application) getPostHandler(w http.ResponseWriter, r *http.Request) {
 	post := getPostContext(r)
 

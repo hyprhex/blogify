@@ -103,3 +103,28 @@ func (s *PostStor) Update(ctx context.Context, post *Post) error {
 
 	return nil
 }
+
+func (s *PostStor) List(ctx context.Context) ([]Post, error) {
+	query := `select id, title, content, category, tags, created_at, updated_at from posts`
+
+	rows, err := s.db.QueryContext(ctx, query)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+
+	posts := []Post{}
+
+	for rows.Next() {
+		var p Post
+		err := rows.Scan(&p.ID, &p.Title, &p.Content, &p.Category, pq.Array(&p.Tags), &p.CreatedAt, &p.UpdatedAt)
+		if err != nil {
+			return nil, err
+		}
+
+		posts = append(posts, p)
+	}
+
+	return posts, nil
+}
