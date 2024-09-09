@@ -42,12 +42,14 @@ go get github.com/go-playground/validator/v10
 ```
 
 **Install CLI tools**
-To migrate file I use : [golang-migrate](https://github.com/golang-migrate/migrate/tree/master/cmd/migrate)
-To get env variable : [direnv](https://direnv.net/)
-To reload server on change: [air](https://github.com/air-verse/air)
+
+- To migrate file I use : [golang-migrate](https://github.com/golang-migrate/migrate/tree/master/cmd/migrate)
+- To get env variable : [direnv](https://direnv.net/)
+- To reload server on change: [air](https://github.com/air-verse/air)
 
 **Install docker**
-Install docker and docker-compose [Here](https://docs.docker.com/compose/install/)
+
+- Install docker and docker-compose [Here](https://docs.docker.com/compose/install/)
 
 ## Usage
 
