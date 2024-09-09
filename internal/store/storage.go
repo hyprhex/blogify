@@ -4,9 +4,13 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"time"
 )
 
-var ErrNotFound = errors.New("resouce not found")
+var (
+	ErrNotFound = errors.New("resouce not found")
+	QueryTime   = time.Second * 5
+)
 
 type Storage struct {
 	Posts interface {
