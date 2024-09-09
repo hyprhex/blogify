@@ -59,7 +59,7 @@ go get github.com/go-playground/validator/v10
 sudo docker compose up --build
 ```
 
-2. Run the sereer
+2. Run the server
 
 ```bash
 air
