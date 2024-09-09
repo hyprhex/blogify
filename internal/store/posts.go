@@ -94,7 +94,7 @@ func (s *PostStor) Delete(ctx context.Context, id int64) error {
 }
 
 func (s *PostStor) Update(ctx context.Context, post *Post) error {
-	query := `update posts set title = $1, content = $2, category = $3, tags = $4 where id = $5`
+	query := `update posts set title = $1, content = $2, category = $3, tags = $4, updated_at = now() where id = $5`
 
 	_, err := s.db.ExecContext(ctx, query, post.Title, post.Content, post.Category, pq.Array(post.Tags), post.ID)
 	if err != nil {
